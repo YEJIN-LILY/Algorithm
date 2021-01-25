@@ -20,7 +20,7 @@ void merge(int left,int mid,int right){
 	
 	while(i<=mid) //왼쪽 배열 원소들 남은 경우
 		tmp[t++]=arr[i++];
-	while(j<=right)
+	while(j<=right) //오른쪽 배열 원소들 남은 
 		tmp[t++]=arr[j++];
 	
 	i=left;
@@ -38,8 +38,6 @@ void mergeSort(int left,int right){
 		mergeSort(mid+1,right);
 		merge(left,mid,right);
 	}
-	
-	
 }
 
 
@@ -56,5 +54,5 @@ int main() {
 	mergeSort(0,n-1);
 	
 	for(int i=0;i<n;i++)
-		cout<<result[i]<<endl;
+		cout<<arr[i]<<endl;
 }
