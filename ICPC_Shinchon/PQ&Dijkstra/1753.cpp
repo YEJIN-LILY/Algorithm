@@ -39,10 +39,10 @@ int main(){
 	while(pq.size()){
 		pair<ll,ll> cur=pq.top(); //가장 작은 거리 갖고 있는 정점
 		pq.pop();
-		if(dist[cur.second]<cur.first) //아직 dist 갱신 되지 않은 경우
+		if(dist[cur.second]<cur.first) //갱신 필요 없음
 			continue;
 		for(auto next:vt[cur.second]){ //현재 정점과 연결되어 있는 정점들과의 거리 갱신
-			if(dist[next.first]>cur.first+next.second){ //dist>지금까지 온 거리+다음 정점까지의 거리->갱신 필요
+			if(dist[next.first]>cur.first+next.second){ //dist > 지금까지 온 거리+다음 정점까지의 거리->갱신 필요
 				dist[next.first]=cur.first+next.second;
 				pq.push({dist[next.first],next.first});
 			}
