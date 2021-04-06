@@ -1,42 +1,31 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
-
-
 using namespace std;
-int n,cnt;
-bool isused1[40]={false,}; //열
-bool isused2[40]={false,}; //우상단: i+j
-bool isused3[40]={false,}; //좌상단: i-j -> 이 때 음수 인덱스 처리
 
-void solution(int row){
-	if(row==n){
+int N,cnt;
+bool isused1[40]; //열
+bool isused2[40]; // /(우상 대각선): i+j
+bool isused3[40]; // \(좌상 대각선): i-j->음수인 경우 존재!!!=>i-j+N-1
+void solution(int queen){ //queen: 퀸이 존재하는 행 인덱스
+	if(queen==N){
 		cnt++;
 		return;
 	}
-	
-	for(int j=0;j<n;j++){
-		if(isused1[j]||isused2[row+j]||isused3[row-j+n-1])
+	for(int i=0;i<N;i++){
+		if(isused1[i]||isused2[i+queen]||isused3[queen-i+N-1]) //이미 퀸을 놓았으면
 			continue;
-		isused1[j]=true;
-		isused2[row+j]=true;
-		isused3[row-j+n-1]=true;
-		solution(row+1);
-		isused1[j]=false;
-		isused2[row+j]=false;
-		isused3[row-j+n-1]=false;
+		isused1[i]=true;
+		isused2[i+queen]=true;
+		isused3[queen-i+N-1]=true;
+		solution(queen+1);
+		isused1[i]=false;
+		isused2[i+queen]=false;
+		isused3[queen-i+N-1]=false;
 	}
 }
 
-
-
-int main() {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0), cout.tie(0);
-
-	cin>>n;
+int main(){
+	cin>>N;
 	
 	solution(0);
-	
 	cout<<cnt;
 }
