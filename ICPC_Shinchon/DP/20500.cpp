@@ -10,12 +10,12 @@ using namespace std;
 
 ll n;
 
-//일의 자리는 5로 고정해야 함
-ll comb[1600][1600]; //comb[x][y]: x->전체 자리수, y->5의 개수=>일의 자리 제외
+//nCr=n-1Cr-1+n-1Cr
+ll comb[1600][1600]; //comb[x][y]: x->전체 자리수, y->5의 개수
 
 //15의 배수: 일의 자리는 0 또는 5, 각 자리수 합이 3의 배수
 
-void combination(){
+void combination(){ //1과 5로 만들 수 있는 n자리수의 개수
 	
 	comb[0][0]=1;
 	comb[1][0]=1;
@@ -26,8 +26,8 @@ void combination(){
 		comb[i][i]=1;
 	}
 	
-	for(ll i=2;i<=n;i++){
-		for(ll j=1;j<=n;j++){
+	for(ll i=2;i<=n;i++){ //자리수
+		for(ll j=1;j<=n;j++){ //5의 개수
 			comb[i][j]=(comb[i-1][j-1]+comb[i-1][j])%MOD;
 			//cout<<"comb["<<i<<"]"<<"["<<j<<"]: "<<comb[i][j]<<endl;
 		}
@@ -49,9 +49,9 @@ int main() {
 	//cout<<comb[2][1];
 	
 	for(ll i=0;i<n;i++){ //5의 개수
-		if((n-i-1+5*i+5)%3==0){
+		if((n-i-1+5*i+5)%3==0){ //일의 자리는 5로 고정->따로 5 더해줌
 			
-			cnt+=comb[n-1][i];
+			cnt+=comb[n-1][i]; //일의 자리는 5로 고정했기 때문에 n-1자리수에서 찾음
 		}
 	}
 	
