@@ -15,6 +15,7 @@ struct Item{
 	int d;
 };
 
+//배열을 더 사용하지 않고 걍 아이템 구조를 만들면 된다
 vector<Item> board[60][60]; 
 
 //이동하고 나눠야 한다. 즉, 이동하고 더해야 한다!
@@ -25,7 +26,8 @@ void divide_fireball(){
 				int M=0;
 				int S=0;
 				
-				bool is_odd=true;
+				//구슬 꺼내고 나서도 계속 true이면 모두 홀수 or 모두 짝수가 됨
+				bool is_odd=true; 
 				bool is_even=true;
 				
 				for(int k=0;k<board[i][j].size();k++){
@@ -66,7 +68,7 @@ void divide_fireball(){
 						board[i][j].push_back(tmp);
 						tmp={new_m,new_v,7};
 						board[i][j].push_back(tmp);
-					}
+					} //구슬 쪼개고 끝나는 것임->이동x
 				}
 			}
 		}
@@ -82,7 +84,7 @@ void move(){
 				int new_x=(i+dx[board[i][j][k].d]*board[i][j][k].s); //이동할 좌표
 				int new_y=(j+dy[board[i][j][k].d]*board[i][j][k].s);
 			
-				if(new_x>N)
+				if(new_x>N) //이 때 좌표를 1-N으로 설정했기 때문에 %(N+1)로 했을 경우 인덱스가 0인 상황이 발생한다. 이건 따로 처리해줘야함
 					new_x%=N;
 				if(new_x<1)
 					new_x=N-abs(new_x)%N;
@@ -105,16 +107,6 @@ void move(){
 	divide_fireball();
 }
 
-void print(){
-	for(int i=1;i<=N;i++){
-		for(int j=1;j<=N;j++){
-			for(int k=0;k<board[i][j].size();k++){
-				cout<<board[i][j][k].m<<endl;
-			}
-		}
-	}
-}
-
 int main(){
 	ios_base::sync_with_stdio(0);
 	cin.tie(0),cout.tie(0);
@@ -124,7 +116,7 @@ int main(){
 	for(int i=0;i<M;i++){
 		cin>>r>>c>>m>>s>>d;
 		
-		Item tmp={m,s,d};
+		Item tmp={m,s,d}; //구슬
 		board[r][c].push_back(tmp);
 	}
 	
@@ -136,7 +128,6 @@ int main(){
 	for(int i=1;i<=N;i++){
 		for(int j=1;j<=N;j++){
 			for(int k=0;k<board[i][j].size();k++){
-				//cout<<board[i][j][k].m<<endl;
 				sum+=board[i][j][k].m;
 			}
 		}
